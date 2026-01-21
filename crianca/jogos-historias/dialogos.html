@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,7 +34,7 @@
       background: white;
       border-radius: 24px;
       padding: 2rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
     .lumina-icon {
@@ -83,6 +84,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <a href="jogos.html" class="btn-voltar">← Voltar</a>
@@ -126,7 +128,7 @@
       document.getElementById('texto-dialogo').textContent = dialogos[tipo];
       document.getElementById('temas-lista').style.display = 'none';
       document.getElementById('dialogo-area').style.display = 'block';
-      
+
       // Rolar suavemente até o diálogo
       document.querySelector('.container-caixa').scrollIntoView({ behavior: 'smooth' });
     }
@@ -141,5 +143,17 @@
       alert("🔊 (Voz suave da Lumina)\n\n" + document.getElementById('texto-dialogo').textContent);
     }
   </script>
+
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
 </body>
+
 </html>

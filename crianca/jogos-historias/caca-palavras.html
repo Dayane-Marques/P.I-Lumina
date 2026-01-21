@@ -1,475 +1,517 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-<meta charset="UTF-8">
-<title>Caça-Palavras da Lumina</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-    :root {
-        --cell-size: 40px;
-        --fundo-escuro: #1a1f2f;
-        --amarelo-lumina: #FFEDB3;
-        --verde-seguro: #A8E6CF;
-        --rosa-alerta: #FF9AA2;
-    }
-    @media (max-width: 760px) {
-        :root { --cell-size: 32px; }
-    }
-    @media (max-width: 480px) {
-        :root { --cell-size: 26px; }
-    }
+    <meta charset="UTF-8">
+    <title>Caça-Palavras da Lumina</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cell-size: 40px;
+            --fundo-escuro: #1a1f2f;
+            --amarelo-lumina: #FFEDB3;
+            --verde-seguro: #A8E6CF;
+            --rosa-alerta: #FF9AA2;
+        }
 
-    body {
-        margin: 0;
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, var(--fundo-escuro), #2c3e50);
-        color: white;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 28px 12px 56px;
-    }
-    h1 {
-        margin: 0 0 6px;
-        color: var(--amarelo-lumina);
-        font-size: 1.8rem;
-    }
-    .intro {
-        text-align: center;
-        max-width: 650px;
-        margin: 12px auto 20px;
-        line-height: 1.5;
-    }
-    #controls {
-        margin: 10px 0 4px;
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        align-items: center;
-        justify-content: center;
-    }
-    button {
-        background: var(--amarelo-lumina);
-        border: none;
-        color: #5e4a00;
-        font-weight: 700;
-        padding: 8px 14px;
-        border-radius: 8px;
-        cursor: pointer;
-    }
-    button:hover { filter: brightness(1.05); }
-    #status { min-height: 1.5em; font-size: 0.95rem; opacity: .9; }
+        @media (max-width: 760px) {
+            :root {
+                --cell-size: 32px;
+            }
+        }
 
-    #wordList {
-        margin: 14px 0 8px;
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        max-width: 720px;
-        justify-content: center;
-    }
-    .word {
-        background: #ffffff22;
-        padding: 6px 12px;
-        border-radius: 6px;
-        cursor: default;
-        font-weight: bold;
-        transition: 0.3s;
-        border: 1px solid #ffffff30;
-    }
-    .word.found {
-        background: var(--verde-seguro);
-        color: #0b1020;
-        text-decoration: line-through;
-        border-color: var(--verde-seguro);
-    }
-    .word.found-power {
-        background: var(--amarelo-lumina);
-        color: #5e4a00;
-        text-decoration: line-through;
-        border-color: #d4c8a8;
-    }
+        @media (max-width: 480px) {
+            :root {
+                --cell-size: 26px;
+            }
+        }
 
-    #grid {
-        display: grid;
-        grid-template-columns: repeat(14, var(--cell-size));
-        gap: 4px;
-        margin-top: 16px;
-        outline: none;
-    }
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--fundo-escuro), #2c3e50);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 28px 12px 56px;
+        }
 
-    .cell {
-        width: var(--cell-size);
-        height: var(--cell-size);
-        background: #ffffff15;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: calc(var(--cell-size) * 0.5);
-        border-radius: 6px;
-        cursor: pointer;
-        user-select: none;
-        transition: 0.15s;
-        border: 1px solid #ffffff25;
-        outline: none;
-    }
-    .cell:hover { filter: brightness(1.08); }
-    .cell.selected {
-        background: var(--amarelo-lumina);
-        color: #07121a;
-        border-color: var(--amarelo-lumina);
-    }
-    .cell.correct {
-        background: var(--verde-seguro) !important;
-        color: white !important;
-        border-color: var(--verde-seguro) !important;
-        animation: pulse 0.4s ease;
-    }
-    .cell.correct-power {
-        background: var(--amarelo-lumina) !important;
-        color: #5e4a00 !important;
-        border-color: #d4c8a8 !important;
-        animation: pulse 0.4s ease;
-    }
+        h1 {
+            margin: 0 0 6px;
+            color: var(--amarelo-lumina);
+            font-size: 1.8rem;
+        }
 
-    .cell:focus {
-        box-shadow: 0 0 0 2px var(--amarelo-lumina);
-    }
+        .intro {
+            text-align: center;
+            max-width: 650px;
+            margin: 12px auto 20px;
+            line-height: 1.5;
+        }
 
-    #completionArea {
-        display: none;
-        margin-top: 18px;
-        text-align: center;
-    }
-    #completionArea.show {
-        display: block;
-    }
-    #completionArea .msg {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
-        background: #ffffff22;
-        padding: 10px 14px;
-        border-radius: 8px;
-        border: 1px solid #ffffff30;
-        line-height: 1.5;
-    }
+        #controls {
+            margin: 10px 0 4px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+        }
 
-    .btn-voltar {
-        position: fixed;
-        top: 15px;
-        right: 15px;
-        background: #ffeaa7;
-        color: #5e4a00;
-        padding: 6px 16px;
-        border-radius: 30px;
-        text-decoration: none;
-        font-weight: 600;
-    }
-</style>
+        button {
+            background: var(--amarelo-lumina);
+            border: none;
+            color: #5e4a00;
+            font-weight: 700;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            filter: brightness(1.05);
+        }
+
+        #status {
+            min-height: 1.5em;
+            font-size: 0.95rem;
+            opacity: .9;
+        }
+
+        #wordList {
+            margin: 14px 0 8px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            max-width: 720px;
+            justify-content: center;
+        }
+
+        .word {
+            background: #ffffff22;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: default;
+            font-weight: bold;
+            transition: 0.3s;
+            border: 1px solid #ffffff30;
+        }
+
+        .word.found {
+            background: var(--verde-seguro);
+            color: #0b1020;
+            text-decoration: line-through;
+            border-color: var(--verde-seguro);
+        }
+
+        .word.found-power {
+            background: var(--amarelo-lumina);
+            color: #5e4a00;
+            text-decoration: line-through;
+            border-color: #d4c8a8;
+        }
+
+        #grid {
+            display: grid;
+            grid-template-columns: repeat(14, var(--cell-size));
+            gap: 4px;
+            margin-top: 16px;
+            outline: none;
+        }
+
+        .cell {
+            width: var(--cell-size);
+            height: var(--cell-size);
+            background: #ffffff15;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: calc(var(--cell-size) * 0.5);
+            border-radius: 6px;
+            cursor: pointer;
+            user-select: none;
+            transition: 0.15s;
+            border: 1px solid #ffffff25;
+            outline: none;
+        }
+
+        .cell:hover {
+            filter: brightness(1.08);
+        }
+
+        .cell.selected {
+            background: var(--amarelo-lumina);
+            color: #07121a;
+            border-color: var(--amarelo-lumina);
+        }
+
+        .cell.correct {
+            background: var(--verde-seguro) !important;
+            color: white !important;
+            border-color: var(--verde-seguro) !important;
+            animation: pulse 0.4s ease;
+        }
+
+        .cell.correct-power {
+            background: var(--amarelo-lumina) !important;
+            color: #5e4a00 !important;
+            border-color: #d4c8a8 !important;
+            animation: pulse 0.4s ease;
+        }
+
+        .cell:focus {
+            box-shadow: 0 0 0 2px var(--amarelo-lumina);
+        }
+
+        #completionArea {
+            display: none;
+            margin-top: 18px;
+            text-align: center;
+        }
+
+        #completionArea.show {
+            display: block;
+        }
+
+        #completionArea .msg {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            background: #ffffff22;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #ffffff30;
+            line-height: 1.5;
+        }
+
+        .btn-voltar {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: #ffeaa7;
+            color: #5e4a00;
+            padding: 6px 16px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>
-<a href="jogos.html" class="btn-voltar">← Voltar</a>
+    <a href="jogos.html" class="btn-voltar">← Voltar</a>
 
-<h1>🧩 Caça-Palavras da Proteção</h1>
-<div class="intro">
-  Encontre palavras que te ajudam a cuidar do seu corpo.<br>
-  <strong>Lembre-se: você tem o direito de dizer NÃO — e ser ouvido(a).</strong>
-</div>
+    <h1>🧩 Caça-Palavras da Proteção</h1>
+    <div class="intro">
+        Encontre palavras que te ajudam a cuidar do seu corpo.<br>
+        <strong>Lembre-se: você tem o direito de dizer NÃO — e ser ouvido(a).</strong>
+    </div>
 
-<div id="controls">
-    <button id="newGameBtn" aria-label="Novo jogo">Novo jogo</button>
-    <button id="clearSelBtn" aria-label="Limpar seleção atual">Limpar seleção</button>
-    <div id="status" aria-live="polite"></div>
-</div>
+    <div id="controls">
+        <button id="newGameBtn" aria-label="Novo jogo">Novo jogo</button>
+        <button id="clearSelBtn" aria-label="Limpar seleção atual">Limpar seleção</button>
+        <div id="status" aria-live="polite"></div>
+    </div>
 
-<div id="wordList"></div>
-<div id="grid" role="grid" aria-label="Tabuleiro do caça palavras"></div>
+    <div id="wordList"></div>
+    <div id="grid" role="grid" aria-label="Tabuleiro do caça palavras"></div>
 
-<div id="completionArea" aria-live="polite">
-    <div class="msg"></div>
-    <button id="playAgainBtn">Jogar novamente</button>
-</div>
+    <div id="completionArea" aria-live="polite">
+        <div class="msg"></div>
+        <button id="playAgainBtn">Jogar novamente</button>
+    </div>
 
-<script>
-/* =======================
-   PALAVRAS DE EMPODERAMENTO
-   ======================= */
-const palavras = [
-    "NÃO",
-    "CORPO",
-    "RESPEITO",
-    "CONSENTIMENTO",
-    "DIREITOS",
-    "CONFIANÇA",
-    "AJUDA",
-    "LUMINA"
-];
+    <script>
+        /* =======================
+           PALAVRAS DE EMPODERAMENTO
+           ======================= */
+        const palavras = [
+            "NÃO",
+            "CORPO",
+            "RESPEITO",
+            "CONSENTIMENTO",
+            "DIREITOS",
+            "CONFIANÇA",
+            "AJUDA",
+            "LUMINA"
+        ];
 
-// Palavras que merecem destaque especial (amarelo-luz)
-const powerWords = new Set(["NÃO", "CONSENTIMENTO", "DIREITOS"]);
+        // Palavras que merecem destaque especial (amarelo-luz)
+        const powerWords = new Set(["NÃO", "CONSENTIMENTO", "DIREITOS"]);
 
-const tamanho = 14;
-const letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const maxWordLen = Math.max(...palavras.map(p => p.length));
-let grade = [];
-let foundWords = new Set();
-const direcoes = [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]];
-let cellEls = [];
-let selecionados = [];
-let dirSel = null;
+        const tamanho = 14;
+        const letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const maxWordLen = Math.max(...palavras.map(p => p.length));
+        let grade = [];
+        let foundWords = new Set();
+        const direcoes = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]];
+        let cellEls = [];
+        let selecionados = [];
+        let dirSel = null;
 
-function novaGradeVazia() {
-    return Array.from({length: tamanho}, () => Array(tamanho).fill(""));
-}
+        function novaGradeVazia() {
+            return Array.from({ length: tamanho }, () => Array(tamanho).fill(""));
+        }
 
-function colocarPalavras() {
-    for (const palavra of palavras) {
-        let colocada = false;
-        let tentativas = 0;
-        while (!colocada) {
-            tentativas++;
-            if (tentativas > 2000) {
-                grade = novaGradeVazia();
-                tentativas = 0;
-            }
-            const [dr, dc] = direcoes[Math.floor(Math.random() * direcoes.length)];
-            const linha = Math.floor(Math.random() * tamanho);
-            const col = Math.floor(Math.random() * tamanho);
+        function colocarPalavras() {
+            for (const palavra of palavras) {
+                let colocada = false;
+                let tentativas = 0;
+                while (!colocada) {
+                    tentativas++;
+                    if (tentativas > 2000) {
+                        grade = novaGradeVazia();
+                        tentativas = 0;
+                    }
+                    const [dr, dc] = direcoes[Math.floor(Math.random() * direcoes.length)];
+                    const linha = Math.floor(Math.random() * tamanho);
+                    const col = Math.floor(Math.random() * tamanho);
 
-            let pode = true;
-            for (let i = 0; i < palavra.length; i++) {
-                const nl = linha + dr * i;
-                const nc = col + dc * i;
-                if (nl < 0 || nl >= tamanho || nc < 0 || nc >= tamanho) { pode = false; break; }
-                if (grade[nl][nc] && grade[nl][nc] !== palavra[i]) { pode = false; break; }
-            }
+                    let pode = true;
+                    for (let i = 0; i < palavra.length; i++) {
+                        const nl = linha + dr * i;
+                        const nc = col + dc * i;
+                        if (nl < 0 || nl >= tamanho || nc < 0 || nc >= tamanho) { pode = false; break; }
+                        if (grade[nl][nc] && grade[nl][nc] !== palavra[i]) { pode = false; break; }
+                    }
 
-            if (pode) {
-                for (let i = 0; i < palavra.length; i++) {
-                    const nl = linha + dr * i;
-                    const nc = col + dc * i;
-                    grade[nl][nc] = palavra[i];
+                    if (pode) {
+                        for (let i = 0; i < palavra.length; i++) {
+                            const nl = linha + dr * i;
+                            const nc = col + dc * i;
+                            grade[nl][nc] = palavra[i];
+                        }
+                        colocada = true;
+                    }
                 }
-                colocada = true;
             }
         }
-    }
-}
 
-function completarGrade() {
-    for (let i = 0; i < tamanho; i++) {
-        for (let j = 0; j < tamanho; j++) {
-            if (!grade[i][j]) {
-                grade[i][j] = letras[Math.floor(Math.random() * letras.length)];
+        function completarGrade() {
+            for (let i = 0; i < tamanho; i++) {
+                for (let j = 0; j < tamanho; j++) {
+                    if (!grade[i][j]) {
+                        grade[i][j] = letras[Math.floor(Math.random() * letras.length)];
+                    }
+                }
             }
         }
-    }
-}
 
-function limparWordList() {
-    const wordList = document.getElementById("wordList");
-    wordList.innerHTML = "";
-    for (const w of palavras) {
-        const span = document.createElement("span");
-        span.className = "word";
-        span.id = "word_" + w;
-        span.textContent = w;
-        wordList.appendChild(span);
-    }
-}
-
-function gerarInterface() {
-    const grid = document.getElementById("grid");
-    grid.innerHTML = "";
-    grid.tabIndex = 0;
-    cellEls = Array.from({length: tamanho}, () => Array(tamanho).fill(null));
-
-    for (let i = 0; i < tamanho; i++) {
-        for (let j = 0; j < tamanho; j++) {
-            const div = document.createElement("div");
-            div.className = "cell";
-            div.dataset.linha = i;
-            div.dataset.col = j;
-            div.setAttribute("role", "gridcell");
-            div.setAttribute("tabindex", "0");
-            div.textContent = grade[i][j];
-            div.addEventListener("click", onClickCell);
-            div.addEventListener("keydown", onKeyCell);
-            grid.appendChild(div);
-            cellEls[i][j] = div;
+        function limparWordList() {
+            const wordList = document.getElementById("wordList");
+            wordList.innerHTML = "";
+            for (const w of palavras) {
+                const span = document.createElement("span");
+                span.className = "word";
+                span.id = "word_" + w;
+                span.textContent = w;
+                wordList.appendChild(span);
+            }
         }
-    }
-}
 
-function setStatus(msg) {
-    document.getElementById("status").textContent = msg || "";
-}
+        function gerarInterface() {
+            const grid = document.getElementById("grid");
+            grid.innerHTML = "";
+            grid.tabIndex = 0;
+            cellEls = Array.from({ length: tamanho }, () => Array(tamanho).fill(null));
 
-function isAdjacent(r1, c1, r2, c2) {
-    const dr = Math.abs(r2 - r1);
-    const dc = Math.abs(c2 - c1);
-    return (dr <= 1 && dc <= 1 && !(dr === 0 && dc === 0));
-}
-
-function addSelection(el, r, c) {
-    el.classList.add("selected");
-    selecionados.push({el, r, c});
-    if (selecionados.length === 2) {
-        const a = selecionados[0], b = selecionados[1];
-        dirSel = { dr: Math.sign(b.r - a.r), dc: Math.sign(b.c - a.c) };
-    }
-}
-
-function popSelection() {
-    const last = selecionados.pop();
-    if (last) last.el.classList.remove("selected");
-    if (selecionados.length < 2) dirSel = null;
-}
-
-function clearSelection() {
-    selecionados.forEach(s => s.el.classList.remove("selected"));
-    selecionados = [];
-    dirSel = null;
-}
-
-function lockSelectionAsCorrect(word) {
-    const usePower = powerWords.has(word);
-    selecionados.forEach(s => {
-        s.el.classList.remove("selected");
-        s.el.classList.add("locked");
-        if (usePower) s.el.classList.add("correct-power");
-        else s.el.classList.add("correct");
-    });
-    
-    const wordEl = document.getElementById("word_" + word);
-    if (wordEl) {
-        wordEl.classList.add("found");
-        if (usePower) wordEl.classList.add("found-power");
-    }
-    
-    foundWords.add(word);
-    setStatus(`✅ Encontrou: ${word}`);
-
-    if (foundWords.size === palavras.length) {
-        document.querySelector("#completionArea .msg").innerHTML = 
-          "Parabéns! Você encontrou as palavras da proteção.<br><br>" +
-          "<strong>Você tem o direito de:</strong><br>" +
-          "• Decidir quem toca seu corpo<br>" +
-          "• Dizer NÃO sem culpa<br>" +
-          "• Ser ouvido(a) por adultos<br><br>" +
-          "Se algo te deixar desconfortável, conte para alguém de confiança.<br>" +
-          "A Lumina acredita em você. ✨";
-        document.getElementById("completionArea").classList.add("show");
-    }
-
-    selecionados = [];
-    dirSel = null;
-}
-
-function currentSelectedString() {
-    return selecionados.map(s => s.el.textContent).join("");
-}
-
-function checkMatchAndFinalize() {
-    const palavra = currentSelectedString();
-    for (const w of palavras) {
-        if (foundWords.has(w)) continue;
-        if (palavra === w || palavra === w.split("").reverse().join("")) {
-            lockSelectionAsCorrect(w);
-            return true;
+            for (let i = 0; i < tamanho; i++) {
+                for (let j = 0; j < tamanho; j++) {
+                    const div = document.createElement("div");
+                    div.className = "cell";
+                    div.dataset.linha = i;
+                    div.dataset.col = j;
+                    div.setAttribute("role", "gridcell");
+                    div.setAttribute("tabindex", "0");
+                    div.textContent = grade[i][j];
+                    div.addEventListener("click", onClickCell);
+                    div.addEventListener("keydown", onKeyCell);
+                    grid.appendChild(div);
+                    cellEls[i][j] = div;
+                }
+            }
         }
-    }
-    return false;
-}
 
-function onClickCell(e) {
-    const el = e.currentTarget;
-    if (el.classList.contains("locked")) return;
-
-    const r = +el.dataset.linha;
-    const c = +el.dataset.col;
-
-    if (selecionados.length > 0) {
-        const last = selecionados[selecionados.length - 1];
-        if (last.r === r && last.c === c) {
-            popSelection();
-            setStatus("");
-            return;
+        function setStatus(msg) {
+            document.getElementById("status").textContent = msg || "";
         }
-    }
 
-    if (selecionados.length === 0) {
-        addSelection(el, r, c);
-        setStatus("");
-        return;
-    }
+        function isAdjacent(r1, c1, r2, c2) {
+            const dr = Math.abs(r2 - r1);
+            const dc = Math.abs(c2 - c1);
+            return (dr <= 1 && dc <= 1 && !(dr === 0 && dc === 0));
+        }
 
-    const last = selecionados[selecionados.length - 1];
-    if (!isAdjacent(last.r, last.c, r, c)) {
-        clearSelection();
-        addSelection(el, r, c);
-        setStatus("");
-        return;
-    }
+        function addSelection(el, r, c) {
+            el.classList.add("selected");
+            selecionados.push({ el, r, c });
+            if (selecionados.length === 2) {
+                const a = selecionados[0], b = selecionados[1];
+                dirSel = { dr: Math.sign(b.r - a.r), dc: Math.sign(b.c - a.c) };
+            }
+        }
 
-    if (!dirSel) {
-        const dr = Math.sign(r - last.r);
-        const dc = Math.sign(c - last.c);
-        dirSel = {dr, dc};
-        addSelection(el, r, c);
-    } else {
-        const expectedR = last.r + dirSel.dr;
-        const expectedC = last.c + dirSel.dc;
-        if (r !== expectedR || c !== expectedC) {
+        function popSelection() {
+            const last = selecionados.pop();
+            if (last) last.el.classList.remove("selected");
+            if (selecionados.length < 2) dirSel = null;
+        }
+
+        function clearSelection() {
+            selecionados.forEach(s => s.el.classList.remove("selected"));
+            selecionados = [];
+            dirSel = null;
+        }
+
+        function lockSelectionAsCorrect(word) {
+            const usePower = powerWords.has(word);
+            selecionados.forEach(s => {
+                s.el.classList.remove("selected");
+                s.el.classList.add("locked");
+                if (usePower) s.el.classList.add("correct-power");
+                else s.el.classList.add("correct");
+            });
+
+            const wordEl = document.getElementById("word_" + word);
+            if (wordEl) {
+                wordEl.classList.add("found");
+                if (usePower) wordEl.classList.add("found-power");
+            }
+
+            foundWords.add(word);
+            setStatus(`✅ Encontrou: ${word}`);
+
+            if (foundWords.size === palavras.length) {
+                document.querySelector("#completionArea .msg").innerHTML =
+                    "Parabéns! Você encontrou as palavras da proteção.<br><br>" +
+                    "<strong>Você tem o direito de:</strong><br>" +
+                    "• Decidir quem toca seu corpo<br>" +
+                    "• Dizer NÃO sem culpa<br>" +
+                    "• Ser ouvido(a) por adultos<br><br>" +
+                    "Se algo te deixar desconfortável, conte para alguém de confiança.<br>" +
+                    "A Lumina acredita em você. ✨";
+                document.getElementById("completionArea").classList.add("show");
+            }
+
+            selecionados = [];
+            dirSel = null;
+        }
+
+        function currentSelectedString() {
+            return selecionados.map(s => s.el.textContent).join("");
+        }
+
+        function checkMatchAndFinalize() {
+            const palavra = currentSelectedString();
+            for (const w of palavras) {
+                if (foundWords.has(w)) continue;
+                if (palavra === w || palavra === w.split("").reverse().join("")) {
+                    lockSelectionAsCorrect(w);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function onClickCell(e) {
+            const el = e.currentTarget;
+            if (el.classList.contains("locked")) return;
+
+            const r = +el.dataset.linha;
+            const c = +el.dataset.col;
+
+            if (selecionados.length > 0) {
+                const last = selecionados[selecionados.length - 1];
+                if (last.r === r && last.c === c) {
+                    popSelection();
+                    setStatus("");
+                    return;
+                }
+            }
+
+            if (selecionados.length === 0) {
+                addSelection(el, r, c);
+                setStatus("");
+                return;
+            }
+
+            const last = selecionados[selecionados.length - 1];
+            if (!isAdjacent(last.r, last.c, r, c)) {
+                clearSelection();
+                addSelection(el, r, c);
+                setStatus("");
+                return;
+            }
+
+            if (!dirSel) {
+                const dr = Math.sign(r - last.r);
+                const dc = Math.sign(c - last.c);
+                dirSel = { dr, dc };
+                addSelection(el, r, c);
+            } else {
+                const expectedR = last.r + dirSel.dr;
+                const expectedC = last.c + dirSel.dc;
+                if (r !== expectedR || c !== expectedC) {
+                    clearSelection();
+                    addSelection(el, r, c);
+                    setStatus("");
+                    return;
+                }
+                addSelection(el, r, c);
+            }
+
+            if (checkMatchAndFinalize()) return;
+            if (selecionados.length > maxWordLen) {
+                clearSelection();
+                setStatus("Seleção limpa (muito longa).");
+            } else {
+                setStatus("");
+            }
+        }
+
+        function onKeyCell(e) {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                e.currentTarget.click();
+            } else if (e.key === "Escape") {
+                clearSelection();
+                setStatus("Seleção limpa.");
+            }
+        }
+
+        document.getElementById("clearSelBtn").addEventListener("click", () => {
             clearSelection();
-            addSelection(el, r, c);
-            setStatus("");
-            return;
+            setStatus("Seleção limpa.");
+        });
+
+        document.getElementById("newGameBtn").addEventListener("click", iniciarNovoJogo);
+        document.getElementById("playAgainBtn").addEventListener("click", iniciarNovoJogo);
+
+        function iniciarNovoJogo() {
+            foundWords = new Set();
+            grade = novaGradeVazia();
+            colocarPalavras();
+            completarGrade();
+            limparWordList();
+            gerarInterface();
+            clearSelection();
+            setStatus("Novo jogo iniciado.");
+            document.getElementById("completionArea").classList.remove("show");
         }
-        addSelection(el, r, c);
-    }
 
-    if (checkMatchAndFinalize()) return;
-    if (selecionados.length > maxWordLen) {
-        clearSelection();
-        setStatus("Seleção limpa (muito longa).");
-    } else {
-        setStatus("");
-    }
-}
+        iniciarNovoJogo();
+    </script>
 
-function onKeyCell(e) {
-    if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        e.currentTarget.click();
-    } else if (e.key === "Escape") {
-        clearSelection();
-        setStatus("Seleção limpa.");
-    }
-}
-
-document.getElementById("clearSelBtn").addEventListener("click", () => {
-    clearSelection();
-    setStatus("Seleção limpa.");
-});
-
-document.getElementById("newGameBtn").addEventListener("click", iniciarNovoJogo);
-document.getElementById("playAgainBtn").addEventListener("click", iniciarNovoJogo);
-
-function iniciarNovoJogo() {
-    foundWords = new Set();
-    grade = novaGradeVazia();
-    colocarPalavras();
-    completarGrade();
-    limparWordList();
-    gerarInterface();
-    clearSelection();
-    setStatus("Novo jogo iniciado.");
-    document.getElementById("completionArea").classList.remove("show");
-}
-
-iniciarNovoJogo();
-</script>
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
 </body>
+
 </html>
