@@ -93,18 +93,35 @@
     function mostrarMensagem(sentimento) {
       const mensagens = {
         feliz: "Que alegria ver você feliz! 😊 Dança, canta ou compartilha essa felicidade com alguém!",
-        triste: "Tudo bem se sentir triste às vezes. 💙 A Lumina está aqui com você. Quer um abraço virtual?",
-        bravo: "Raiva é normal! Mas respire fundo... 1... 2... 3... Agora, conte o que te deixou assim.",
-        medo: "Medo é um amigo que avisa: 'cuidado!'. Você não está sozinho(a). A Lumina te protege! 🌟"
+        triste: "Tudo bem se sentir triste às vezes. 😢 A Lumina está aqui com você. Quer um abraço virtual?",
+        bravo: "😡 Raiva é normal! Mas respire fundo... 1... 2... 3... Agora, conte o que te deixou assim.",
+        medo: "Medo é um amigo que avisa: 'cuidado! 😨'. Você não está sozinho(a). A Lumina te protege! 🌟"
       };
 
+      const classesCor = {
+        feliz: "mensagem-feliz",
+        triste: "mensagem-triste",
+        bravo: "mensagem-bravo",
+        medo: "mensagem-medo"
+      };
+
+      // Atualiza o texto
       document.getElementById('texto-mensagem').textContent = mensagens[sentimento];
+
+      const msgBox = document.getElementById('mensagem-conteudo');
+
+      // Remove classes antigas
+      msgBox.classList.remove("mensagem-feliz", "mensagem-triste", "mensagem-bravo", "mensagem-medo");
+
+      // Adiciona a nova classe
+      msgBox.classList.add(classesCor[sentimento]);
+
+      // Mostra a mensagem
       document.getElementById('mensagem-lumina').style.display = 'block';
 
-      // Rolar suavemente até a mensagem
+      // Rola suavemente até ela
       document.getElementById('mensagem-lumina').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
-
   </script>
   <script>
     function mostrarPessoaConfianca() {
@@ -174,8 +191,8 @@
       </div>
 
       <!-- Caixa de mensagem da Lumina -->
-      <div id="mensagem-lumina" class="mt-5 text-center px-3" style="min-height: 80px; display: none;">
-        <div class="bg-light p-4 rounded-4 d-inline-block">
+      <div id="mensagem-lumina" class="mt-5 text-center px-3" style="display: none;">
+        <div class="d-inline-block p-4 rounded-5" id="mensagem-conteudo">
           <p class="mb-0" id="texto-mensagem"></p>
         </div>
       </div>
@@ -260,24 +277,11 @@
           <div class="bg-white p-4 rounded-4 shadow-sm">
             <h3 class="text-center mb-3">📜 Letra da Música</h3>
             <div class="letra text-start">
-              <h4 class="text-center mb-3"><strong>Minha Luz, Meu Corpo</strong></h4>
+              <h4 class="text-center mb-3"><strong>Titulo da Música</strong></h4>
               <p class="mb-3">
-                Meu corpo é meu jardim,<br>
-                Só eu decido quem entra nele.<br>
-                Meus sentimentos são minhas flores,<br>
-                Têm o direito de brilhar ou murchar.
-              </p>
-              <p class="mb-3">
-                Se alguém tocar sem pedir,<br>
-                Eu digo “não” com coragem.<br>
-                Minha voz é minha luz,<br>
-                E ela merece ser ouvida!
-              </p>
-              <p>
-                Sou uma estrelinha,<br>
-                Sou um vagalume também.<br>
-                Meu brilho é só meu,<br>
-                E ninguém apaga ele!
+                Aqui ficara a letra da música da Lumina, <br> 
+                que fala sobre o corpo ser nosso e <br> 
+                os sentimentos serem importantes.
               </p>
             </div>
           </div>
@@ -296,7 +300,7 @@
     </div>
   </section>
 
-  <div class="text-center mt-5">
+  <div class="text-center mt-3">
     <a href="../index.html" class="btn">← Voltar à tela inicial</a>
   </div>
   </div>

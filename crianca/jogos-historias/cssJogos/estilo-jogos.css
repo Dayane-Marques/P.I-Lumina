@@ -11,7 +11,9 @@
   --roxo-suave: #d1c4e9;
   --texto: #474747;
   --borda: #dfd2ab;
-  --fundo: linear-gradient(136deg, #ffecb3 15%, #ffb3fc 50%, #ffecb3 85%);
+  --fundo: linear-gradient(139deg, #fae3fd 0%, #e7def7 35%, #fdf6e3 100%);
+  --navbar-footer-gradiente: radial-gradient(circle, #dcaeee 19%, #bb91e6 72%, #ffedb3 100%);
+
 }
 
 body {
@@ -19,8 +21,15 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
 .navbar {
-  background-color: var(--amarelo-pessego);
+  background: var(--navbar-footer-gradiente);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -282,7 +291,7 @@ main {
 }
 
 footer {
-  background-color: var(--amarelo-pessego);
+  background: var(--navbar-footer-gradiente);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -299,5 +308,11 @@ footer {
 
   .close-btn {
     font-size: 1.6rem;
+  }
+
+  .btn-voltar {
+    position: sticky;
+    top: 60px;
+    left: 1100px;
   }
 }

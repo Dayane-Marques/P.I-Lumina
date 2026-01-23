@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,39 +7,42 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="cssJogos/estilo-dialogos.css">
-
 </head>
 
 <body>
-
   <a href="jogos.html" class="btn-voltar">← Voltar</a>
 
   <div class="container text-center mb-4">
     <div class="lumina-icon">✨</div>
-    <h1 class="fw-bold">Caixa de Diálogos Reais</h1>
-    <p class="text-muted">Escolha uma situação. A Lumina te ajuda a encontrar as palavras.</p>
+    <h1>Caixa de Diálogos Reais</h1>
+    <p class="intro">
+      Às vezes, é difícil encontrar as palavras certas.<br>
+      A Lumina te ajuda a falar com coragem e carinho.
+    </p>
   </div>
 
   <div class="container-caixa">
-    <!-- Lista de temas -->
     <div id="temas-lista">
-      <button class="tema-btn" onclick="mostrarDialogo('mae')">Falar com minha mãe/pai</button>
-      <button class="tema-btn" onclick="mostrarDialogo('professora')">Contar para a professora</button>
-      <button class="tema-btn" onclick="mostrarDialogo('amigo')">Conversar com um amigo de confiança</button>
-      <button class="tema-btn" onclick="mostrarDialogo('adulto')">Procurar outro adulto</button>
+      <p class="text-center mb-3" style="color: #5e4a00; font-weight: 600;">
+        Escolha com quem você quer conversar:
+      </p>
+      <button class="tema-btn" onclick="mostrarDialogo('mae')">🏠 Com minha mãe ou pai</button>
+      <button class="tema-btn" onclick="mostrarDialogo('professora')">👩‍🏫 Com a professora</button>
+      <button class="tema-btn" onclick="mostrarDialogo('amigo')">👧 Com um amigo de confiança</button>
+      <button class="tema-btn" onclick="mostrarDialogo('adulto')">👨‍⚕️ Com outro adulto que eu respeito</button>
     </div>
 
-    <!-- Área de diálogo (inicialmente escondida) -->
     <div id="dialogo-area" style="display: none;">
       <div class="dialogo-box">
         <p id="texto-dialogo" class="mb-0"></p>
         <button class="btn-audio" onclick="simularAudio()">🔊 Ouvir com a voz da Lumina</button>
       </div>
-      <button class="btn btn-warning mt-3" onclick="voltarTemas()" style="background:#FFEDB3; color:#5e4a00;">
-        Escolher outra situação
+      <button class="btn btn-warning mt-3" onclick="voltarTemas()">
+        Escolher outra pessoa para conversar
       </button>
     </div>
   </div>
+
 
   <script>
     const dialogos = {
@@ -54,8 +56,6 @@
       document.getElementById('texto-dialogo').textContent = dialogos[tipo];
       document.getElementById('temas-lista').style.display = 'none';
       document.getElementById('dialogo-area').style.display = 'block';
-
-      // Rolar suavemente até o diálogo
       document.querySelector('.container-caixa').scrollIntoView({ behavior: 'smooth' });
     }
 
@@ -65,21 +65,19 @@
     }
 
     function simularAudio() {
-      // Simula áudio com alert (em produção, use Web Speech API)
       alert("🔊 (Voz suave da Lumina)\n\n" + document.getElementById('texto-dialogo').textContent);
     }
   </script>
 
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
     </div>
-  </div>
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-  </script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
 </body>
-
 </html>

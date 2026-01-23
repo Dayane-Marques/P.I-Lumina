@@ -21,7 +21,7 @@
       style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
       <div class="lumina-img"><img src="assets/img/Designer.png" alt="Mascote Lumina"></div>
       <h1 class="titulo-lumina">Oi! Eu sou a Lumina!</h1>
-      <p class="subtitulo-lumina">Com quem eu vou brincar hoje?</p>
+      <p class="subtitulo-lumina">O que você gostaria de fazer hoje?</p>
       <div class="cards-container">
         <div class="card-crianca p-4" onclick="escolher('crianca')">
           <div class="mb-3"><span class="fs-1">👧👦</span></div>
@@ -31,10 +31,11 @@
           </p>
           <div class="estrelas"><span>✨</span><span>🌟</span><span>💫</span></div>
         </div>
-
+        
+        <!-- 
         <div class="card-adulto p-4" onclick="escolher('adulto')">
           <div class="mb-3"><span class="fs-1">👩‍⚕️👨‍🏫</span></div>
-          <h3 class="fw-bold text-dark">Sou adulto responsável</h3>
+          <h3 class="fw-bold text-dark">Quero ajudar!</h3>
           <p class="mt-2 text-muted">
             Quero apoio para conversar com crianças sobre corpo, sentimentos e segurança.
           </p>
@@ -44,8 +45,9 @@
             <span class="text-success">💬</span>
           </div>
         </div>
+         -->
 
-        <!-- 
+
         <div class="card-jogos p-4" onclick="escolher('jogos')">
           <div class="mb-3"><span class="fs-1">🎮📚</span></div>
           <h3 class="text-white fw-bold">Quero brincar!</h3>
@@ -56,23 +58,19 @@
             <span>✨</span><span>🌟</span><span>💫</span>
           </div>
         </div>
-        -->
+
       </div>
     </div>
   </div>
 
-  <footer class="py-4 text-center text-muted">
-    <p>🌟 Lumina — Sua amiga que te ajuda a se sentir bem</p>
-    <p class="mb-0">© 2025 Lumina — Feito com carinho para o bem-estar das crianças</p>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     function escolher(tipo) {
       if (tipo === 'crianca') {
         window.location.href = 'crianca/index-crianca.html';
       } else if (tipo === 'adulto') {
         window.location.href = 'adultos/index-adulto.html';
+      } else if (tipo === 'jogos') {
+        window.location.href = 'crianca/jogos-historias/jogos.html';
       }
     }
 
@@ -81,6 +79,14 @@
       alert("Função de trocar perfil ainda não implementada.");
     }
   </script>
+
+  <footer class="py-4 text-center text-muted">
+    <p>🌟 Lumina — Sua amiga que te ajuda a se sentir bem</p>
+    <p class="mb-0">© 2025 Lumina — Feito com carinho para o bem-estar das crianças</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
   <!-- VLibras -->
   <div vw class="enabled">
@@ -94,4 +100,5 @@
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
 </body>
+
 </html>

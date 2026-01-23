@@ -156,7 +156,7 @@ body {
 }
 
 /* === Card de Jogos – comentado (como você tinha) === */
-/*
+
 .card-jogos {
     width: 280px;
     background: linear-gradient(120deg, #FFEDB3 0%, #D4EDDA 50%, #FFF5A1 100%);
@@ -193,7 +193,6 @@ body {
         1px 1px 0 #5e4a00;
     font-weight: 700;
 }
-*/
 
 /* Responsividade */
 @media (max-width: 768px) {
