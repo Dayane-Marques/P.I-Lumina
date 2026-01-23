@@ -26,8 +26,7 @@ header {
   position: sticky;
   top: 0;
   width: 100%;
-  z-index: 1050;
-  /* Bootstrap z-index para navbar */
+  z-index: 2;
 }
 
 nav {
@@ -73,6 +72,33 @@ nav {
 
 .btn:hover {
   background-color: var(--mel-suave);
+}
+
+/* Estilo base da mensagem */
+#mensagem-lumina {
+  min-height: 80px;
+}
+
+/* Estilo do conteúdo interno da mensagem */
+#mensagem-conteudo.mensagem-feliz {
+  background-color: var(--amarelo-pessego);
+}
+
+#mensagem-conteudo.mensagem-triste {
+  background-color: #bddbf1;
+}
+
+#mensagem-conteudo.mensagem-bravo {
+  background-color: #ff9d9d;
+}
+
+#mensagem-conteudo.mensagem-medo {
+  background-color: #b8f0bd;
+}
+
+/* Opcional: sombra suave para destacar */
+#mensagem-conteudo {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 @media (min-width: 768px) {
@@ -284,9 +310,7 @@ footer {
     padding-right: 1rem;
   }
 
-  .navbar-nav {
-    
-  }
+  .navbar-nav {}
 }
 
 /* Garante que em tamanhos intermediários funcione */
