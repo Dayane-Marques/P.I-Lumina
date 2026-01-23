@@ -28,9 +28,6 @@
           <li class="nav-item"><a class="nav-link" href="jogos-historias/jogos.html">Jogos</a></li>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#ajuda">Ajuda</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="../index.html">Trocar perfil</a>
           </li>
         </ul>
@@ -131,130 +128,186 @@
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
 
+
+  <!-- Seção: Meus Sentimentos -->
+  <section id="sentimentos" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">💖 Meus Sentimentos</h2>
+      <p class="text-center lead mb-5">
+        Todos os sentimentos são bem-vindos aqui! A Lumina quer saber como você está se sentindo hoje.
+      </p>
+
+      <!-- Cartões de sentimentos interativos -->
+      <div class="row g-4 justify-content-center">
+
+        <!-- Feliz -->
+        <div class="col-md-3 text-center">
+          <div class="card-sentimento card-feliz p-4 rounded-4" onclick="mostrarMensagem('feliz')">
+            <div class="emoji fs-1 mb-3">😊</div>
+            <h4>Feliz</h4>
+          </div>
+        </div>
+
+        <!-- Triste -->
+        <div class="col-md-3 text-center">
+          <div class="card-sentimento card-triste p-4 rounded-4" onclick="mostrarMensagem('triste')">
+            <div class="emoji fs-1 mb-3">😢</div>
+            <h4>Triste</h4>
+          </div>
+        </div>
+
+        <!-- Bravo -->
+        <div class="col-md-3 text-center">
+          <div class="card-sentimento card-bravo p-4 rounded-4" onclick="mostrarMensagem('bravo')">
+            <div class="emoji fs-1 mb-3">😡</div>
+            <h4>Bravo</h4>
+          </div>
+        </div>
+
+        <!-- Com medo -->
+        <div class="col-md-3 text-center">
+          <div class="card-sentimento card-medo p-4 rounded-4" onclick="mostrarMensagem('medo')">
+            <div class="emoji fs-1 mb-3">😨</div>
+            <h4>Com medo</h4>
+          </div>
+        </div>
+      </div>
+
+      <!-- Caixa de mensagem da Lumina -->
+      <div id="mensagem-lumina" class="mt-5 text-center px-3" style="min-height: 80px; display: none;">
+        <div class="bg-light p-4 rounded-4 d-inline-block">
+          <p class="mb-0" id="texto-mensagem"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Seção: Meu Corpo é Meu! -->
+  <section id="corpo" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">🛡️ Meu Corpo é Meu!</h2>
+      <p class="text-center lead mb-5">
+        Meu corpo é meu castelo! 💖 Só eu decido quem pode tocar, abraçar ou dar beijo.
+      </p>
+
+      <div class="row g-4 align-items-center">
+        <!-- Ilustração (substitua pelo caminho real da imagem) -->
+        <div class="card-img col-md-6 text-center">
+          <div class="bg-white p-3 rounded-4 shadow-sm d-inline-block">
+            <img src="../assets/img/corpo-ilustrado.png.jpg" alt="Desenho de uma criança com roupas coloridas"
+              class="img-fluid" style="max-width: 580px;">
+            <p class="mt-2 text-muted"><small>Minhas roupas cobrem as partes privadas. Ninguém deve tocar ali sem
+                permissão!</small></p>
+          </div>
+        </div>
+
+        <!-- Conteúdo interativo -->
+        <div class="card-castelo col-md-6">
+          <div class="bg-white p-4 rounded-4">
+            <h4 class="mb-3">✨ Regras do Castelo do Corpo:</h4>
+            <ul class="text-start">
+              <li><strong>Eu posso dizer “NÃO”</strong> — mesmo para um adulto!</li>
+              <li><strong>Toques seguros</strong>: médico com mamãe/papai, abraço de quem eu gosto.</li>
+              <li><strong>Toques não seguros</strong>: quando alguém toca onde minha roupa cobre, me faz sentir vergonha
+                ou medo.</li>
+              <li><strong>Se algo me deixar triste ou com medo, eu conto</strong> para alguém de confiança!</li>
+            </ul>
+
+            <div class="mt-4">
+              <button class="btn btn-outline-primary" onclick="mostrarPessoaConfianca()">
+                👂 Quem são as pessoas de confiança?
+              </button>
+            </div>
+
+            <div id="pessoas-confianca" class="mt-3" style="display: none;">
+              <p class="mb-0">
+                <strong>Exemplos:</strong> mamãe, papai, professora, tia, avó, conselheiro(a) escolar...
+              </p>
+              <p class="mb-0">
+                <strong>Lembre-se:</strong> você pode contar até mesmo se disserem “é segredo”!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seção: Música da Lumina -->
+  <section id="musica-lumina" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">🎶 Música da Lumina</h2>
+      <p class="text-center lead mb-4">
+        Cante junto com a Lumina! Esta música te lembra que seu corpo é seu e seus sentimentos importam.
+      </p>
+
+      <!-- Vídeo do YouTube -->
+      <div class="row justify-content-center mb-4">
+        <div class="col-12 col-md-10 col-lg-8">
+          <div class="ratio ratio-16x9">
+            <!-- 🔴 Substitua o ID abaixo pelo seu ID real do YouTube -->
+            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0" title="Música da Lumina" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+
+      <!-- Letra da música -->
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+          <div class="bg-white p-4 rounded-4 shadow-sm">
+            <h3 class="text-center mb-3">📜 Letra da Música</h3>
+            <div class="letra text-start">
+              <h4 class="text-center mb-3"><strong>Minha Luz, Meu Corpo</strong></h4>
+              <p class="mb-3">
+                Meu corpo é meu jardim,<br>
+                Só eu decido quem entra nele.<br>
+                Meus sentimentos são minhas flores,<br>
+                Têm o direito de brilhar ou murchar.
+              </p>
+              <p class="mb-3">
+                Se alguém tocar sem pedir,<br>
+                Eu digo “não” com coragem.<br>
+                Minha voz é minha luz,<br>
+                E ela merece ser ouvida!
+              </p>
+              <p>
+                Sou uma estrelinha,<br>
+                Sou um vagalume também.<br>
+                Meu brilho é só meu,<br>
+                E ninguém apaga ele!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botão de emergência -->
+    <div class="container">
+      <div class="text-center mt-5">
+        <div class="bg-white p-3 rounded-4 d-inline-block border border-warning">
+          <p class="mb-1">🌟 <strong>Se você estiver em perigo agora:</strong></p>
+          <p class="mb-0">Ligue para o <strong>Disque 100</strong> — é grátis e anônimo!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="text-center mt-5">
+    <a href="../index.html" class="btn">← Voltar à tela inicial</a>
+  </div>
+  </div>
+
+  <footer class="py-4 mt-5">
+    <div class="container text-center">
+      <p class="mb-0">&copy; 2026 Lumina. Todos os direitos reservados.</p>
+    </div>
+
 </body>
 
-<!-- Seção: Meus Sentimentos -->
-<section id="sentimentos" class="py-5">
-  <div class="container">
-    <h2 class="text-center mb-4">💖 Meus Sentimentos</h2>
-    <p class="text-center lead mb-5">
-      Todos os sentimentos são bem-vindos aqui! A Lumina quer saber como você está se sentindo hoje.
-    </p>
-
-    <!-- Cartões de sentimentos interativos -->
-    <div class="row g-4 justify-content-center">
-
-      <!-- Feliz -->
-      <div class="col-md-3 text-center">
-        <div class="card-sentimento card-feliz p-4 rounded-4" onclick="mostrarMensagem('feliz')">
-          <div class="emoji fs-1 mb-3">😊</div>
-          <h4>Feliz</h4>
-        </div>
-      </div>
-
-      <!-- Triste -->
-      <div class="col-md-3 text-center">
-        <div class="card-sentimento card-triste p-4 rounded-4" onclick="mostrarMensagem('triste')">
-          <div class="emoji fs-1 mb-3">😢</div>
-          <h4>Triste</h4>
-        </div>
-      </div>
-
-      <!-- Bravo -->
-      <div class="col-md-3 text-center">
-        <div class="card-sentimento card-bravo p-4 rounded-4" onclick="mostrarMensagem('bravo')">
-          <div class="emoji fs-1 mb-3">😡</div>
-          <h4>Bravo</h4>
-        </div>
-      </div>
-
-      <!-- Com medo -->
-      <div class="col-md-3 text-center">
-        <div class="card-sentimento card-medo p-4 rounded-4" onclick="mostrarMensagem('medo')">
-          <div class="emoji fs-1 mb-3">😨</div>
-          <h4>Com medo</h4>
-        </div>
-      </div>
-    </div>
-
-    <!-- Caixa de mensagem da Lumina -->
-    <div id="mensagem-lumina" class="mt-5 text-center px-3" style="min-height: 80px; display: none;">
-      <div class="bg-light p-4 rounded-4 d-inline-block">
-        <p class="mb-0" id="texto-mensagem"></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<!-- Seção: Meu Corpo é Meu! -->
-<section id="corpo" class="py-5">
-  <div class="container">
-    <h2 class="text-center mb-4">🛡️ Meu Corpo é Meu!</h2>
-    <p class="text-center lead mb-5">
-      Meu corpo é meu castelo! 💖 Só eu decido quem pode tocar, abraçar ou dar beijo.
-    </p>
-
-    <div class="row g-4 align-items-center">
-      <!-- Ilustração (substitua pelo caminho real da imagem) -->
-      <div class="col-md-6 text-center">
-        <div class="bg-white p-3 rounded-4 shadow-sm d-inline-block">
-          <img src="../assets/img/corpo-ilustrado.png.jpg" alt="Desenho de uma criança com roupas coloridas"
-            class="img-fluid" style="max-width: 580px;">
-          <p class="mt-2 text-muted"><small>Minhas roupas cobrem as partes privadas. Ninguém deve tocar ali sem
-              permissão!</small></p>
-        </div>
-      </div>
-
-      <!-- Conteúdo interativo -->
-      <div class="col-md-6">
-        <div class="bg-light p-4 rounded-4">
-          <h4 class="mb-3">✨ Regras do Castelo do Corpo:</h4>
-          <ul class="text-start">
-            <li><strong>Eu posso dizer “NÃO”</strong> — mesmo para um adulto!</li>
-            <li><strong>Toques seguros</strong>: médico com mamãe/papai, abraço de quem eu gosto.</li>
-            <li><strong>Toques não seguros</strong>: quando alguém toca onde minha roupa cobre, me faz sentir vergonha
-              ou medo.</li>
-            <li><strong>Se algo me deixar triste ou com medo, eu conto</strong> para alguém de confiança!</li>
-          </ul>
-
-          <div class="mt-4">
-            <button class="btn btn-outline-primary" onclick="mostrarPessoaConfianca()">
-              👂 Quem são as pessoas de confiança?
-            </button>
-          </div>
-
-          <div id="pessoas-confianca" class="mt-3" style="display: none;">
-            <p class="mb-0">
-              <strong>Exemplos:</strong> mamãe, papai, professora, tia, avó, conselheiro(a) escolar...
-            </p>
-            <p class="mb-0">
-              <strong>Lembre-se:</strong> você pode contar até mesmo se disserem “é segredo”!
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Botão de emergência (acolhedor, não assustador) -->
-    <div class="text-center mt-5">
-      <div class="bg-white p-3 rounded-4 d-inline-block border border-warning">
-        <p class="mb-1">🌟 <strong>Se você estiver em perigo agora:</strong></p>
-        <p class="mb-0">Ligue para o <strong>Disque 100</strong> — é grátis e anônimo!</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<div class="text-center mt-5">
-  <a href="../index.html" class="btn btn-outline-secondary">← Voltar à tela inicial</a>
-</div>
-</div>
-
-<footer class="bg-light py-4 mt-5">
-  <div class="container text-center">
-    <p class="mb-0">&copy; 2026 Lumina. Todos os direitos reservados.</p>
-  </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

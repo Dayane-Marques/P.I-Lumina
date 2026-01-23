@@ -1,122 +1,298 @@
-  body {
-    background: linear-gradient(139deg, #fae3fd 0%, #e7def7 35%, #fdf6e3 100%);
-    font-family: 'Poppins', sans-serif;
+:root {
+  --fundo-gradiente: linear-gradient(139deg, #fae3fd 0%, #e7def7 35%, #fdf6e3 100%);
+  --navbar-footer-gradiente: radial-gradient(circle, #dcaeee 19%, #bb91e6 72%, #ffedb3 100%);
+  --amarelo-pastel: #fdf6e3;
+  --amarelo-pessego: #ffecb3;
+  --mel-suave: #ffe082;
+  --mel: #d6b44d;
+  --mel-escuro: #5e4a00;
+  --texto: #474747;
+  --borda: #dfd2ab;
+  --feliz: #FFD166;
+  --triste: #118AB2;
+  --bravo: #EF476F;
+  --medo: #06D6A0;
+}
+
+body {
+  background: var(--fundo-gradiente);
+  font-family: 'Poppins', sans-serif;
+  color: var(--texto);
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1050;
+  /* Bootstrap z-index para navbar */
+}
+
+nav {
+  background: var(--navbar-footer-gradiente) !important;
+  backdrop-filter: blur(10px);
+}
+
+.navbar-brand,
+.nav-link {
+  color: var(--mel-escuro) !important;
+  font-weight: 600;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+/* Hero buttons: força responsivo com Bootstrap utils */
+.mt-5.d-flex.flex-column.flex-md-row {
+  flex-wrap: wrap !important;
+  gap: 1rem !important;
+}
+
+.mt-5.d-flex.flex-column.flex-md-row .btn {
+  flex: 1 1 100% !important;
+  min-width: 200px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 24px !important;
+  background: var(--amarelo-pessego) !important;
+  color: var(--mel-escuro) !important;
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn {
+  background-color: var(--amarelo-pessego);
+  color: var(--mel-escuro);
+}
+
+.btn:hover {
+  background-color: var(--mel-suave);
+}
+
+@media (min-width: 768px) {
+  .mt-5.d-flex.flex-column.flex-md-row .btn {
+    flex: 0 0 200px !important;
+  }
+}
+
+/* Lumina img responsiva */
+.lumina-img img {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  object-fit: contain;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Cards sentimentos: grid Bootstrap otimizado */
+.row.g-4.justify-content-center .col-md-3 {
+  flex: 0 0 auto;
+  width: 100%;
+  max-width: 280px;
+}
+
+@media (max-width: 767.98px) {
+  .row.g-4.justify-content-center .col-md-3 {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+.card-sentimento {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 3px solid;
+  background-color: white !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem !important;
+}
+
+.card-sentimento:hover {
+  transform: translateY(-8px) scale(1.03) !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2) !important;
+}
+
+.card-feliz {
+  border-color: var(--feliz) !important;
+}
+
+.card-triste {
+  border-color: var(--triste) !important;
+}
+
+.card-bravo {
+  border-color: var(--bravo) !important;
+}
+
+.card-medo {
+  border-color: var(--medo) !important;
+}
+
+.emoji {
+  font-size: clamp(2rem, 5vw, 4rem) !important;
+  margin-bottom: 1rem;
+  animation: float 2s infinite ease-in-out;
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0);
   }
 
-  nav {
-    background: radial-gradient(circle, rgba(220, 174, 238, 1) 19%, rgba(187, 145, 230, 1) 72%, rgba(255, 237, 179, 1) 100%);
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Seção corpo: row responsiva */
+#corpo .row.g-4.align-items-center .col-md-6 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  #corpo .row.g-4.align-items-center .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+.card-img img {
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+}
+
+/* YouTube iframe responsivo */
+.ratio.ratio-16x9 {
+  aspect-ratio: 16/9 !important;
+}
+
+.ratio.ratio-16x9 iframe {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Geral mobile-first overrides */
+@media (max-width: 575.98px) {
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 
-  .btn-trocar {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 1000;
-    background: #ffeaa7;
-    border: none;
-    border-radius: 30px;
-    padding: 6px 16px;
-    font-weight: 600;
+  h1.display-6 {
+    font-size: 1.75rem !important;
   }
 
-  .card-infantil {
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-  }
-
-  .card-infantil:hover {
-    transform: translateY(-8px);
+  .btn-lg {
+    padding: 0.75rem 1rem !important;
+    font-size: 1rem !important;
   }
 
   .lumina-img img {
-    animation: float 3s ease-in-out infinite;
-    margin-bottom: 10px;
-    width: 200px;
-    height: 200px;
-    object-fit: contain;
+    max-width: 180px;
+  }
+}
+
+footer {
+  background: var(--navbar-footer-gradiente);
+}
+
+/* Desktop enhancements sem quebrar */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1000px;
   }
 
-  /* Estilo dos cards de sentimentos */
+  .lumina-img img {
+    max-width: 280px;
+  }
+}
+
+/* Customizações específicas solicitadas - adiciona ao final do CSS */
+
+/* Sentimentos: 4 cards lado a lado em 1440px+ */
+@media (min-width: 1440px) {
+  .row.g-4.justify-content-center {
+    max-width: 1000px;
+    margin: 0 auto;
+    min-height: auto;
+  }
+
+  .row.g-4.justify-content-center .col-md-3 {
+    flex: 0 0 23% !important;
+    max-width: 23% !important;
+    padding: 0 0.75rem;
+  }
+
   .card-sentimento {
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 3px solid #e0e0e0;
-    background-color: white;
+    min-height: 200px;
+  }
+}
+
+/* Meu Corpo: cards empilhados em 990px */
+@media (max-width: 991.98px) {
+  #corpo .row.g-4.align-items-center {
+    flex-direction: column-reverse !important;
   }
 
-  .card-sentimento:hover {
-    transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  #corpo .row.g-4.align-items-center .col-md-6 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+    margin-bottom: 2rem;
   }
 
-  .card-feliz {
-    border-color: #FFD166;
+  .card-castelo {
+    order: 1 !important;
   }
 
-  .card-triste {
-    border-color: #118AB2;
+  .card-img {
+    order: 2 !important;
+  }
+}
+
+/* Botões hero centralizados em 425px */
+@media (max-width: 425px) {
+  .mt-5.d-flex.flex-column.flex-md-row {
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
   }
 
-  .card-bravo {
-    border-color: #EF476F;
+  .mt-5.d-flex.flex-column.flex-md-row .btn {
+    width: 280px !important;
+    max-width: 90vw !important;
+    margin: 0 auto !important;
+    display: block;
   }
 
-  .card-medo {
-    border-color: #06D6A0;
+  .container>.mt-5 {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
-  /* Fundo suave de jardim */
-  body {
-    background-color: #f9f7f0;
-    font-family: 'Poppins', sans-serif;
+  .navbar-nav {
+    
   }
+}
 
-  .text-warning {
-    color: #FFB74D !important;
+/* Garante que em tamanhos intermediários funcione */
+@media (min-width: 992px) and (max-width: 1439px) {
+  .row.g-4.justify-content-center .col-md-3 {
+    flex: 0 0 48% !important;
+    max-width: 48% !important;
   }
-
-  /* Animação sutil na abelha */
-  .fs-1 {
-    animation: float 3s infinite ease-in-out;
-  }
-
-  @keyframes float {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-8px);
-    }
-  }
-
-  /* Botões arredondados e convidativos */
-  .btn:hover {
-    transform: scale(1.03);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  body {
-    background-color: #f9f7f0;
-    font-family: 'Poppins', sans-serif;
-  }
-
-  .btn-voltar {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 1000;
-    background: #ffeaa7;
-    color: #5e4a00;
-    border: none;
-    border-radius: 30px;
-    padding: 6px 16px;
-    font-weight: 600;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  }
-
-
+}
